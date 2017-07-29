@@ -1,0 +1,97 @@
+.bannermain 
+{
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 5%;
+}
+.bannermain a, .desc_banner a
+{
+  display: block;
+  text-align: center;
+}
+.bannermain img
+{
+  display: block;
+  text-align: center;
+}
+.introduce_text 
+{
+  width: 48.5%;
+  float: left;
+  padding: 1%;
+}
+.introduce_text h1
+{
+  color: #58585B;
+  font-family: futurabold, Arial, Tahoma;
+  font-size: 32px;
+  margin-bottom: 5%;
+}
+.introduce_text p
+{
+  color: #404041;
+  font-family: futuraregular, Arial, Tahoma;
+  font-size: 22px;
+  line-height: 28px;
+  background-color: #E6E7E8;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.introduce_img
+{
+  width: 50%;
+  float: right;
+  text-align: center;
+  margin-bottom: 3%;
+}
+.introduce_img img
+{
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+.boxlazy .lazyload, .boxlazy .lazyloading
+{
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.4s ease-in;
+  -moz-transition: opacity 0.4s ease-in;
+  -ms-transition: opacity 0.4s ease-in;
+  -o-transition: opacity 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
+}
+.boxlazy.lazyloaded, .boxlazy .lazyloaded
+{
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: alpha(opacity=100);
+  -webkit-transition: opacity 0.4s ease-in;
+  -moz-transition: opacity 0.4s ease-in;
+  -ms-transition: opacity 0.4s ease-in;
+  -o-transition: opacity 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
+}
+@media only screen and (max-width:800px)
+{
+  .introduce_text h1
+  {
+    font-size: 4vw;
+  }
+  .introduce_text p
+  {
+    font-size: 4vw;
+  }
+ .introduce_text
+ {
+  width: 100%;
+ }
+ .introduce_img
+ {
+  width: 100%;
+ }
+}

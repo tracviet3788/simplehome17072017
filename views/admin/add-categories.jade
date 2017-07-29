@@ -1,0 +1,43 @@
+extends ../layouts/admin.jade
+block contents
+	h1 Thêm ngành hàng
+	case status
+		when "success"
+			div(class="alert alert-success")
+				p #{message}
+
+		when "error"
+			div(class="alert alert-danger")
+				p #{message}
+	form(action='', name='add-categories', method="POST", enctype="multipart/form-data")
+		div.form-group
+			label(for='catename') Tên ngành hàng:
+			|     
+			input#catename.form-control(type='text' name='catename' required)
+		div.form-group
+			label(for='catedes') Mô tả về ngành hàng:
+			|     
+			textarea#catedes.form-control(row='7' name='catedes' required)
+		div.form-group
+			label(for='catecover') Hình cover ngành hàng:
+			|     
+			input#catecover.form-control(type="file" name='catecover' required)
+		div.form-group
+			label(for='cateavatar') Hình đại diện ngành hàng:
+			|     
+			input#cateavatar.form-control(type="file" name='cateavatar' required)   
+		div.form-group
+			label(for='catebanner1') Hình banner 1:
+			|     
+			input#catebanner1.form-control.btn-file(type="file" name='catebanner1')
+		div.form-group
+			label(for='catebanner2') Hình banner 2:
+			|     
+			input#catebanner2.form-control(type="file" name='catebanner2')
+		div.form-group
+			label(for='catebanner3') Hình banner 3:
+			|     
+			input#password.form-control(type="file" name='catebanner3')
+		div(class="form-group")
+			div(class="")
+				button(type="submit" class="btn btn-sm btn-primary") Cập nhật

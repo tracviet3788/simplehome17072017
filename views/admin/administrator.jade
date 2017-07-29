@@ -1,0 +1,33 @@
+extends ../layouts/admin.jade
+block contents
+	h1 Thêm thành viên quản trị
+	form(method="POST", action='', name='add-general')
+		div.form-group
+			label(for='fullname') Tên thành viên:
+			|     
+			input#fullname.form-control(type='text' name='fullname')
+			|   
+		div.form-group
+			label(for='username') Tên đăng nhập:
+			|     
+			input#username.form-control(type='text' name='username')
+		div.form-group
+			label(for='password') Password:
+			|     
+			input#password.form-control(type='password' name='password')
+		div.form-group
+			label(for='udescriptions') Mô tả về công việc:
+			|     
+			textarea#udescriptions.form-control(row='5' name='udescriptions')
+			|   
+		div.form-group
+			label(for='email') Email:
+			|     
+			input#email.form-control(type='email' name='email')
+		div.form-group
+			label(for='address') Address:
+			|     
+			input#address.form-control(type='address' name='address')
+		div(class="form-group")
+			div(class="")
+				button(type="submit" class="btn btn-sm btn-primary") Cập nhật

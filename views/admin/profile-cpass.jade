@@ -1,0 +1,28 @@
+extends ../layouts/admin.jade
+block contents
+	-if ({error})
+		.message.info
+			span(style="color:red;font-weight:bold;") #{error}
+	-if ({success})
+		.message.info
+			span(style="color:blue;font-weight:bold;") #{success}
+	h1 Sửa thông tin mật khẩu của #{user.username}
+	form(method="POST", action='', name='add-general')
+		div.form-group
+			label(for='opassword') Mật khẩu cũ:
+			|     
+			input#fullname.form-control(type='password' name='opassword')
+			|   
+		div.form-group
+			label(for='npassword') Mật khẩu mới:
+			|     
+			input#username.form-control(type='password' name='npassword')
+		div.form-group
+			label(for='cnpassword') Nhập lại mật khẩu mới:
+			|     
+			input#username.form-control(type='password' name='cnpassword')
+		div.form-group
+			input#username.form-control(type='hidden' name='usernamehd' value='#{user.username}')
+		div(class="form-group")
+			div(class="")
+				button(type="submit" class="btn btn-sm btn-primary") Cập nhật

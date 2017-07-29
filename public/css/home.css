@@ -1,0 +1,183 @@
+.bannermain 
+{
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+.bannermain a, .desc_banner a
+{
+  display: block;
+  text-align: center;
+}
+.bannermain img
+{
+  display: block;
+  text-align: center;
+}
+.desc_banner
+{
+  width: 100%;
+  float: left;
+  display: block;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.relative_banner
+{
+  width: 68%;
+  float: left;
+}
+.relative_banner img
+{
+  display: block;
+}
+.info_cate
+{
+  color: #fff;
+  background-color: #000;
+  padding: 1px 3% 3% 3%;
+  width: 30.5%;
+  float: left;
+  margin-left: 1.5%;
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  -webkit-opacity: 0.5;
+  -o-opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  filter: alpha(opacity=50);
+  position: relative;
+  height: 395px;
+}
+.info_cate:before
+{
+  content: "";
+  width: 100%;
+  height: 35px;
+  background-color: #000;
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  -webkit-opacity: 0.5;
+  -o-opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  filter: alpha(opacity=50);
+  position: absolute;
+  left: 0px;
+  top: -35px;
+  z-index: 400;
+
+}
+.info_cate h2
+{
+  color: #fff;
+  font-size: 33px;
+  font-family: futurabold, Arial, Tahoma, sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.info_cate p
+{
+  color: #fff;
+  font-size: 19px;
+  font-family: futuraregular, Arial, Tahoma, sans-serif;
+  text-align: justify;
+  line-height: 24px;
+  max-height: 218px;
+  overflow: hidden;
+}
+.info_cate a
+{
+  color: #fff;
+  font-size: 22px;
+  font-family: futuraitalic, Arial, Tahoma, sans-serif;
+  text-align: left;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 10%;
+}
+.boxlazy .lazyload, .boxlazy .lazyloading
+{
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.4s ease-in;
+  -moz-transition: opacity 0.4s ease-in;
+  -ms-transition: opacity 0.4s ease-in;
+  -o-transition: opacity 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
+}
+.boxlazy.lazyloaded, .boxlazy .lazyloaded
+{
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: alpha(opacity=100);
+  -webkit-transition: opacity 0.4s ease-in;
+  -moz-transition: opacity 0.4s ease-in;
+  -ms-transition: opacity 0.4s ease-in;
+  -o-transition: opacity 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
+}
+@media only screen and (max-width:800px)
+{
+  .info_cate
+  {
+    margin-left: 0px;
+  }
+  .info_cate p
+  {
+    font-size: 2.5vw;
+  }
+  .info_cate h2
+  {
+    font-size: 4vw;
+  }
+  .info_cate a
+  {
+    font-size: 2.5vw;
+  }
+}
+@media only screen and (max-width:600px)
+{
+  .info_cate
+  {
+    height: 300px;
+  }
+  .info_cate p
+  {
+    max-height: 145px;
+  }
+}
+@media only screen and (max-width:450px)
+{
+  .info_cate
+  {
+    width: 100%;
+    height: auto;
+  }
+  .info_cate p
+  {
+    height: auto;
+  }
+  .relative_banner
+  {
+    width: 100%;
+  }
+  .info_cate p
+  {
+    font-size: 4vw;
+  }
+  .info_cate h2
+  {
+    font-size: 6vw;
+  }
+  .info_cate a
+  {
+    font-size: 3.8vw;
+    position: inherit;
+    margin-top: 5px;
+  }
+}
