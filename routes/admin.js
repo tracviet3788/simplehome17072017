@@ -127,7 +127,7 @@ router.get('/general',isAuthenticated, function(req,res){
     Post.getAllPosts(function(err,post){
        // Sort by blog latest
         post = post.sort({'id' : -1});
-        res.render('admin/general', { title : 'Thông tin website' , posts : post, functions : functions});
+        res.render('admin/general', { title : 'Thông tin website' , posts : post , user : req.user, functions : functions});
     });
 });
 //Admin administrator

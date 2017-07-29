@@ -2,6 +2,7 @@
  * Created by UserPC on 7/16/2017.
  */
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const config = require('../../config/database');
 
 const CategorySchema = mongoose.Schema({
