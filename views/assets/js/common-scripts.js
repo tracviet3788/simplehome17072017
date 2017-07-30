@@ -11,6 +11,10 @@ $(function() {
 //        cookie: 'dcjq-accordion-1',
         classExpand: 'dcjq-current-parent'
     });
+    console.log('123');
+    $('#addsubcate').unbind().click(function{
+        alert('test');
+    });
 });
 
 var Script = function () {

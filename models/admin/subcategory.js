@@ -6,14 +6,20 @@ const Schema = mongoose.Schema;
 const config = require('../../config/database');
 
 const SubcategorySchema = mongoose.Schema({
+    cateid : {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
     subcatename : String,
-    subcateslug : String,
+    subcateslug : {
+        type: String,
+        required: true,
+        unique: true
+    },
     subcatedes: {
 	    type: String,
 	    required: true
 	},
     status : {
-    	type: Number
+    	type: Number,
+        default: 1
     }
 });
 const subcategory = module.exports = mongoose.model('subcategory', SubcategorySchema);
@@ -21,7 +27,9 @@ module.exports.addSubcategory = function (newSubcategory, callback) {
     newSubcategory.save(callback);
 }
 module.exports.getSubcategory = function (callback) {
-    newSubcategory.find({}).exec(callback);
+    subcategory.find({}).populate('cateid').exec(function (err, subcategory){
+        //console.log(subcategory);
+    });
 }
 module.exports.getPostById = function (id, callback) {
     newSubcategory.findById(id, callback);

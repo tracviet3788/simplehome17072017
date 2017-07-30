@@ -9,12 +9,17 @@ var fs                  = require('fs');
 var functions = require('../libs/functions.js');
 var cfpath = require('../config/default.js');
 const Post = require('../models/home/post');
+const Category = require('../models/admin/category');
 router.get('/', function(req,res){
-    Post.getAllPosts(function(err,post){
-        post = post.sort({'id' : -1});
-
-        res.render('index', { title : 'Home page' , posts : post, functions : functions});
+    Category.getAllCategory(function (err, category){
+      if(!err){
+        console.log(category);
+        res.render('index', { title : 'Home page' , categories : category, functions : functions});
+      }else{
+        res.send(err);
+      }
     });
+    
 });
 router.get('/create-post', function(req, res) {
     res.render('post/create', { title : 'Create a post' });
