@@ -1,7 +1,48 @@
 extends ../layouts/admin.jade
 block contents
 	h1 Thông tin trang web
+	case status
+		when "success"
+			div(class="alert alert-success")
+				p #{message}
+
+		when "error"
+			div(class="alert alert-danger")
+				p #{message}
+	-if(general){
 	form(method="POST", action='', name='add-general')
+		div.form-group
+			label(for='website') Tên website:
+			|     
+			input#website.form-control(type='text' name='website' value='#{general.website}')
+			|   
+		div.form-group
+			label(for='company') Tên công ty:
+			|     
+			input#company.form-control(type='text' name='company' value='#{general.company}')
+
+		div.form-group
+			label(for='descriptions') Mô tả về công ty:
+			|     
+			textarea#descriptions.form-control(row='5' name='descriptions') #{general.descriptions}
+			|   
+		div.form-group
+			label(for='hotline') Hotline:
+			|     
+			input#hotline.form-control(type='number' name='hotline' value='#{general.hotline}')
+		div.form-group
+			label(for='email') Email:
+			|     
+			input#email.form-control(type='email' name='email' value='#{general.email}')
+		div.form-group
+			label(for='address') Address:
+			|     
+			input#address.form-control(type='address' name='address' value='#{general.address}')
+		div(class="form-group")
+			div(class="")
+				button(type="submit" class="btn btn-sm btn-primary") Cập nhật
+	-} else{
+		form(method="POST", action='', name='add-general')
 		div.form-group
 			label(for='website') Tên website:
 			|     
@@ -19,7 +60,7 @@ block contents
 		div.form-group
 			label(for='hotline') Hotline:
 			|     
-			input#hotline.form-control(type='hotline' name='hotline')
+			input#hotline.form-control(type='number' name='hotline')
 		div.form-group
 			label(for='email') Email:
 			|     
@@ -31,3 +72,4 @@ block contents
 		div(class="form-group")
 			div(class="")
 				button(type="submit" class="btn btn-sm btn-primary") Cập nhật
+	-}

@@ -11,12 +11,17 @@ const GeneralSchema = mongoose.Schema({
     descriptions : String,
     hotline : Number,
     email : String,
-    address : String
+    address : String,
+    key: {
+	    type: String,
+	    unique: true,
+	    default: 'main-gen'
+	}
 });
 const General = module.exports = mongoose.model('general', GeneralSchema);
 module.exports.addGeneral = function (newGeneral, callback) {
     newGeneral.save(callback);
 }
-module.exports.viet = function (callback) {
-    console.log("Viet");
+module.exports.getGeneral = function (callback) {
+    General.findOne({'key':'main-gen'}).exec(callback);
 }

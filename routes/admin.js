@@ -84,11 +84,8 @@ router.post('/profile',isAuthenticated, function(req,res){
 });
 //Admin General
 router.get('/general',isAuthenticated, function(req,res){
-    Post.getAllPosts(function(err,post){
-       // Sort by blog latest
-        post = post.sort({'id' : -1});
-        res.render('admin/general', { title : 'Thông tin website' , posts : post , user : req.user, functions : functions});
-    });
+  generalctrController.getGeneral(req,res);
+    
 });
 //Admin administrator
 router.get('/administrator', isAuthenticated,function(req,res){
