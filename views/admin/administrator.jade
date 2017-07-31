@@ -1,6 +1,14 @@
 extends ../layouts/admin.jade
 block contents
 	h1 Thêm thành viên quản trị
+	case status
+		when "success"
+			div(class="alert alert-success")
+				p #{message}
+
+		when "error"
+			div(class="alert alert-danger")
+				p #{message}
 	form(method="POST", action='', name='add-general')
 		div.form-group
 			label(for='fullname') Tên thành viên:

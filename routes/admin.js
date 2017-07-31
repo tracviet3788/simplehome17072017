@@ -15,6 +15,12 @@ const General = require('../models/admin/general');
 const Administrator = require('../models/admin/administrator');
 const Category = require('../models/admin/category');
 const subCategory = require('../models/admin/subcategory');
+
+//Controller
+const categoryController = require('../controllers/admin/categoryctr');
+const administratorController = require('../controllers/admin/administratorctr');
+const generalctrController = require('../controllers/admin/generalctr');
+
 router.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -62,66 +68,19 @@ passport.use(new LocalStrategy(
 ))
 //Admin Profile
 router.get('/profile',isAuthenticated, function(req,res){
-    if(req.user.username){
-        Administrator.getUserByUsername(req.user.username, (err, administrator) => {
-            if(!err) {
-                res.render('admin/profile', { user : administrator});
-            }else{
-                res.render('admin/error', { error : err});
-            }
-        });
-    }
+    administratorController.getProfile(req,res);
 });
 //Admin Profile
 router.get('/p-cpass',isAuthenticated, function(req,res){
-    if(req.user.username){
-        Administrator.getUserByUsername(req.user.username, (err, administrator) => {
-            if(!err) {
-                res.render('admin/profile-cpass', { user : administrator});
-            }else{
-                res.render('admin/error', { error : err});
-            }
-        });
-    }
+    administratorController.getPassProfile(req,res);
 });
 //Admin Change pass submit
 router.post('/p-cpass',isAuthenticated, function(req,res){
-    if(req.body.npassword != req.body.cnpassword){
-        res.render('admin/profile-cpass', { error : 'Mật khẩu không khớp',user : req.user});
-    }else{
-        var newAdministrator = new Administrator;
-        newAdministrator.password = req.body.npassword;
-        Administrator.comparePassword( req.body.opassword, req.user.password, (err, isMatch) => {
-              if(err) throw err;
-              if(isMatch){
-                Administrator.updatePasswordUser(req.body.usernamehd, newAdministrator, function(err,administrator){
-                    if(!err) {
-                        res.render('admin/profile-cpass', { success : 'Mật khẩu đã được cập nhật', user : req.user});
-                    }else{
-                        res.render('admin/error', { error : err});
-                    }
-                });
-              } else {
-                res.render('admin/profile-cpass', { error : 'Mật khẩu cũ không khớp',user : req.user});
-              }
-        });
-        
-    }
+    administratorController.changePassProfile(req,res);
 });
 //Admin Profile submit
 router.post('/profile',isAuthenticated, function(req,res){
-    var newAdministrator = {};
-    newAdministrator.fullname = req.body.fullname;
-    newAdministrator.udescriptions = req.body.udescriptions;
-    newAdministrator.email = req.body.email;
-    newAdministrator.address = req.body.address;
-    Administrator.updateUserByUsername(req.body.usernamehd, newAdministrator, function(err,administrator){
-        if(!err) {
-            res.redirect('/admin/profile');
-        }else{
-            res.render('admin/error', { error : err});
-        }
-    });
+    administratorController.updateProfile(req,res);
 });
 //Admin General
 router.get('/general',isAuthenticated, function(req,res){
@@ -133,46 +92,15 @@ router.get('/general',isAuthenticated, function(req,res){
 });
 //Admin administrator
 router.get('/administrator', isAuthenticated,function(req,res){
-    Post.getAllPosts(function(err,post){
-        console.log(req.user);
-       // Sort by blog latest
-        post = post.sort({'id' : -1});
-        res.render('admin/administrator', { title : 'Thông tin thành viên' , posts : post, user : req.user, functions : functions});
-    });
+    res.render('admin/administrator', { title : 'Thông tin thành viên' , user : req.user, functions : functions});
 });
 //Submit Admin General
 router.post('/general', isAuthenticated,function(req,res){
-    var newGeneral = new General;
-    newGeneral.website = req.body.website;
-    newGeneral.company = req.body.company;
-    newGeneral.descriptions = req.body.descriptions;
-    newGeneral.hotline = req.body.hotline;
-    newGeneral.email = req.body.email;
-    newGeneral.address = req.body.address;
-    General.addGeneral(newGeneral, function(err,general){
-        if(!err) {
-             res.redirect('/admin/general');
-        }else{
-            console.log(err);
-        }
-    });
+    generalctrController.addGeneral(req,res);
 });
-//Submit Admin General
+//Submit Add Admin
 router.post('/administrator',isAuthenticated, function(req,res){
-    var newAdministrator = new Administrator;
-    newAdministrator.fullname = req.body.fullname;
-    newAdministrator.username = req.body.username;
-    newAdministrator.udescriptions = req.body.udescriptions;
-    newAdministrator.password = req.body.password;
-    newAdministrator.email = req.body.email;
-    newAdministrator.address = req.body.address;
-    Administrator.addAdministrator(newAdministrator, function(err,administrator){
-        if(!err) {
-            res.redirect('/admin/administrator');
-        }else{
-            res.render('admin/error', { error : err});
-        }
-    });
+    administratorController.addAdministrator(req,res);
 });
 // Authenticate
 router.get('/login', function(req,res){
@@ -209,100 +137,12 @@ router.get('/add-categories',isAuthenticated, function(req,res){
 });
 // Submit Category
 router.post('/add-categories', multipartMiddleware,isAuthenticated, function(req,res){
-   var newCategory = new Category;
-   newCategory.catename = req.body.catename;
-   newCategory.catedes = req.body.catedes;
-   newCategory.cateslug = functions.removeAccent(newCategory.catename);
-   if(req.files.catecover.name){
-    newCategory.catecover = uploadImages(req.files.catecover, cfpath.pathUploadCategory,cfpath.pathImgCategory);
-   }
-   if(req.files.cateavatar.name){
-    newCategory.cateavatar = uploadImages(req.files.cateavatar, cfpath.pathUploadCategory,cfpath.pathImgCategory);
-   }
-   if(req.files.catebanner1.name){
-    newCategory.catebanner1 = uploadImages(req.files.catebanner1, cfpath.pathUploadBanner,cfpath.pathImgBanner);
-   }
-   if(req.files.catebanner2.name){
-    newCategory.catebanner2 = uploadImages(req.files.catebanner2, cfpath.pathUploadBanner,cfpath.pathImgBanner);
-   }
-   if(req.files.catebanner3.name){
-    newCategory.catebanner3 = uploadImages(req.files.catebanner3, cfpath.pathUploadBanner,cfpath.pathImgBanner);
-   }
-   Category.addCategory(newCategory, function(err,newCategory){
-        if(!err) {
-          var subcatename = req.body.subcatename;
-          var subcatedes = req.body.subcatedes;
-          for(var i =0; i < subcatename.length ; i++){
-            var newsubCategory = new subCategory;
-            if(subcatename[i]!=''){
-              newsubCategory.subcatename = subcatename[i];
-              newsubCategory.subcateslug = functions.removeAccent(newsubCategory.subcatename);
-            }
-            if(subcatedes[i]!=''){
-              newsubCategory.subcatedes = subcatedes[i];
-            }
-            newsubCategory.cateid = newCategory._id;
-            subCategory.addSubcategory(newsubCategory, function(err,newsubCategory){
-              if(!err) {
-                Category.addSubCate(newCategory._id,newsubCategory._id,function(err,category){
-                    if(!err) {
-                        res.render('admin/add-categories', {status : 'success', message : 'Thêm ngành hàng thành công!',user : req.user});
-                    
-                    }else{
-                        res.render('admin/add-categories', {status : 'error', message : error,user : req.user});
-                        
-                    }
-                });
-              }else{
-                  res.render('admin/add-categories', {status : 'error', message : error,user : req.user});
-                  
-              }
-            });
-          }
-        }else{
-            res.render('admin/add-categories', {status : 'error', message : error,user : req.user});
-            
-        }
-    });
-   
-
-   /*var newCategory = new Category;
-   newCategory.catename = req.body.catename;
-   newCategory.catedes = req.body.catedes;
-   newCategory.cateslug = functions.removeAccent(newCategory.catename);
-   if(req.files.catecover.name){
-    newCategory.catecover = uploadImages(req.files.catecover, cfpath.pathUploadCategory,cfpath.pathImgCategory);
-   }
-   if(req.files.cateavatar.name){
-    newCategory.cateavatar = uploadImages(req.files.cateavatar, cfpath.pathUploadCategory,cfpath.pathImgCategory);
-   }
-   if(req.files.catebanner1.name){
-    newCategory.catebanner1 = uploadImages(req.files.catebanner1, cfpath.pathUploadBanner,cfpath.pathImgBanner);
-   }
-   if(req.files.catebanner2.name){
-    newCategory.catebanner2 = uploadImages(req.files.catebanner2, cfpath.pathUploadBanner,cfpath.pathImgBanner);
-   }
-   if(req.files.catebanner3.name){
-    newCategory.catebanner3 = uploadImages(req.files.catebanner3, cfpath.pathUploadBanner,cfpath.pathImgBanner);
-   }*/
-   
-   //console.log(req.files.catecover);
-   //newCategory.cateavatar = req.file.cateavatar;
-   /*newCategory.catebanner1 = req.file.catebanner1;
-   newCategory.catebanner2 = req.file.catebanner2;
-   newCategory.catebanner3 = req.file.catebanner3;*/
-   
-   /*Category.addCategory(newCategory, function(err,newCategory){
-        if(!err) {
-            res.render('admin/add-categories', {status : 'success', message : 'Thêm ngành hàng thành công!',user : req.user});
-            return false;
-        }else{
-            res.render('admin/add-categories', {status : 'error', message : error,user : req.user});
-            return false;
-        }
-    });*/
+   categoryController.addCategory(req,res);
 });
-
+// Manager Category
+router.get('/mag-categories',isAuthenticated, function(req,res){
+    res.render('admin/mag-categories', {user : req.user});
+});
 
 
 // Simple route middleware to ensure user is authenticated.
@@ -312,19 +152,5 @@ function isAuthenticated(req,res,next){
    else
       res.redirect('/admin/login');
 }
-// Upload images
-function uploadImages(file,path = '/usr/src/app/express/public/upload/', pathImg = 'pictures/banner'){
-    var originalFilename = file.name;
-    var fileType         = file.type.split('/')[1];
-    var fileSize         = file.size;
-    var pathUpload       = path + originalFilename;
-    var pathImg       = pathImg + originalFilename;
-    var data = fs.readFileSync(file.path);
-    fs.writeFileSync(pathUpload, data);
-    var imgUrl = '';
-    if( fs.existsSync(pathUpload) ) {
-        imgUrl = pathImg;
-    }
-    return imgUrl;
-}
+
 module.exports = router;

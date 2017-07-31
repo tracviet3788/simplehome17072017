@@ -7,16 +7,7 @@ nav
           .sub_nav
             .box_cate_pro
               ul.list_category
-                li
-                  a(href='#', title='#') 1231231232       
-                li
-                  a(href='#', title='#') 1231231232  
-                li
-                  a(href='#', title='#') 1231231232       
-                li
-                  a(href='#', title='#') 1231231232  
-                li
-                  a(href='#', title='#') 1231231232       
-                li
-                  a(href='#', title='#') 1231231232       
+                - each subcategory in category.subcategory
+                  li
+                    a(href='#', title='#') #{subcategory.subcatename}       
                         

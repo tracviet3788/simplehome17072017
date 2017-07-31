@@ -1,12 +1,14 @@
 extends ../layouts/admin.jade
 block contents
-	-if ({error})
-		.message.info
-			span(style="color:red;font-weight:bold;") #{error}
-	-if ({success})
-		.message.info
-			span(style="color:blue;font-weight:bold;") #{success}
 	h1 Sửa thông tin mật khẩu của #{user.username}
+	case status
+		when "success"
+			div(class="alert alert-success")
+				p #{message}
+
+		when "error"
+			div(class="alert alert-danger")
+				p #{message}
 	form(method="POST", action='', name='add-general')
 		div.form-group
 			label(for='opassword') Mật khẩu cũ:
