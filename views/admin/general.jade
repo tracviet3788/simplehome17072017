@@ -9,8 +9,9 @@ block contents
 		when "error"
 			div(class="alert alert-danger")
 				p #{message}
-	-if(general){
+
 	form(method="POST", action='', name='add-general')
+		-if(general){
 		div.form-group
 			label(for='website') Tên website:
 			|     
@@ -29,20 +30,31 @@ block contents
 		div.form-group
 			label(for='hotline') Hotline:
 			|     
-			input#hotline.form-control(type='number' name='hotline' value='#{general.hotline}')
+			input#hotline.form-control(type='text' name='hotline' value='#{general.hotline}')
+		div.form-group
+			label(for='hotlinecskh') Hotline CSKH:
+			|     
+			input#hotline.form-control(type='text' name='hotlinecskh' value='#{general.hotlinecskh}')
 		div.form-group
 			label(for='email') Email:
 			|     
 			input#email.form-control(type='email' name='email' value='#{general.email}')
 		div.form-group
+			label(for='emailcskh') Email CSKH:
+			|     
+			input#email.form-control(type='email' name='emailcskh' value='#{general.emailcskh}')
+		div.form-group
 			label(for='address') Address:
 			|     
 			input#address.form-control(type='address' name='address' value='#{general.address}')
+		div.form-group
+			label(for='address') Facebook:
+			|     
+			input#address.form-control(type='address' name='facebook' value='#{general.facebook}')
 		div(class="form-group")
 			div(class="")
 				button(type="submit" class="btn btn-sm btn-primary") Cập nhật
-	-} else{
-		form(method="POST", action='', name='add-general')
+		-} else{
 		div.form-group
 			label(for='website') Tên website:
 			|     
@@ -60,16 +72,28 @@ block contents
 		div.form-group
 			label(for='hotline') Hotline:
 			|     
-			input#hotline.form-control(type='number' name='hotline')
+			input#hotline.form-control(type='text' name='hotline')
+		div.form-group
+			label(for='hotlinecskh') Hotline CSKH:
+			|     
+			input#hotline.form-control(type='text' name='hotlinecskh')
 		div.form-group
 			label(for='email') Email:
 			|     
 			input#email.form-control(type='email' name='email')
 		div.form-group
+			label(for='emailcskh') Email CSKH:
+			|     
+			input#email.form-control(type='email' name='emailcskh')
+		div.form-group
 			label(for='address') Address:
 			|     
 			input#address.form-control(type='address' name='address')
+		div.form-group
+			label(for='facebook') Facebook:
+			|     
+			input#address.form-control(type='address' name='facebook')
 		div(class="form-group")
 			div(class="")
 				button(type="submit" class="btn btn-sm btn-primary") Cập nhật
-	-}
+		-}

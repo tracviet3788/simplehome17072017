@@ -138,7 +138,7 @@ router.post('/add-categories', multipartMiddleware,isAuthenticated, function(req
 });
 // Manager Category
 router.get('/mag-categories',isAuthenticated, function(req,res){
-    res.render('admin/mag-categories', {user : req.user});
+    categoryController.getAdminCategory(req,res);
 });
 
 

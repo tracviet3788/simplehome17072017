@@ -11,9 +11,9 @@ exports.addAdministrator = function(req,res) {
     newAdministrator.address = req.body.address;
     Administrator.addAdministrator(newAdministrator, function(err,administrator){
         if(!err) {
-            res.redirect('/admin/administrator', {status : 'success', message : 'Thêm Administrator thành công!',user : req.user});
+            res.render('admin/administrator', {status : 'success', message : 'Thêm Administrator thành công!',user : req.user});
         }else{
-            res.render('admin/error', {status : 'error', message : error,user : req.user});
+            res.render('admin/error', {status : 'error', message : err,user : req.user});
         }
     });
 }

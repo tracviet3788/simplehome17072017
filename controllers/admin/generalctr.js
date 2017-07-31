@@ -5,8 +5,11 @@ exports.addGeneral = function(req,res) {
     newGeneral.company = req.body.company;
     newGeneral.descriptions = req.body.descriptions;
     newGeneral.hotline = req.body.hotline;
+    newGeneral.hotlinecskh = req.body.hotlinecskh;
     newGeneral.email = req.body.email;
+    newGeneral.emailcskh = req.body.emailcskh;
     newGeneral.address = req.body.address;
+    newGeneral.facebook = req.body.facebook;
     General.update({key:'main-gen'},newGeneral,{upsert: true}, function(err,general){
         if(!err) {
              res.render('admin/general',{status : 'success', message : 'Cập nhật thông tin thành công!',general:newGeneral,user : req.user});

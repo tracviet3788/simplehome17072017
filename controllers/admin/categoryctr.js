@@ -7,6 +7,7 @@ exports.addCategory = function(req,res) {
 	var newCategory = new Category;
    newCategory.catename = req.body.catename;
    newCategory.catedes = req.body.catedes;
+   newCategory.status = req.body.catestatus;
    newCategory.cateslug = functions.removeAccent(newCategory.catename);
    if(req.files.catecover.name){
     newCategory.catecover = uploadImages(req.files.catecover, cfpath.pathUploadCategory,cfpath.pathImgCategory);
@@ -80,6 +81,12 @@ function uploadImages(file,path = '/usr/src/app/express/public/upload/', pathImg
     }
     return imgUrl;
 }
-exports.Base64Decode = function( input ) {
-	return workspace.tools.Base64.decode(input);
+exports.getAdminCategory = function(req,res) {
+	Category.getAllCategory(function (err, category){
+      if(!err){
+        res.render('admin/mag-categories', {category:category,user : req.user});
+      }else{
+        res.send(err);
+      }
+    });
 }

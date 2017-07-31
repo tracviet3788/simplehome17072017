@@ -38,6 +38,15 @@ block contents
 			label(for='catebanner3') Hình banner 3:
 			|     
 			input#password.form-control(type="file" name='catebanner3')
+		div.form-group
+			label(for='catebanner3') Trạng thái:
+			|     
+			input(type='radio', name='catestatus', value='0', style="")
+			|  Ẩn   
+			input(type='radio', name='catestatus', value='1', style="" checked)
+			|  Hiện   
+			input(type='radio', name='catestatus', value='2', style="")
+			|  Trang chủ        
 		div(class="form-group")
 			div#addsubcate(class="")
 				button(type="button" class="btn btn-sm btn-warning") Thêm danh mục con

@@ -15,28 +15,30 @@ block contents
           th Thao tác
       |       
       tbody
-        tr
-          td John
-          |           
-          td 
-            table.table.table-striped
-              tr
-                td tesr
-              tr
-                td tesr
-              tr
-                td tesr
-          |           
-          td john@example.com
-        |         
-        tr
-          td Mary       
-          td Moe
-          |           
-          td mary@example.com
-        |         
-        tr
-          td July
-          td Dooley
-          |           
-          td july@example.com
+        - each cate in category
+          tr
+            td #{cate.catename}
+            |           
+            td 
+              table.table.table-striped
+                - each subcate in cate.subcategory
+                  tr
+                    td #{subcate.subcatename}
+                    td 
+                      a(href="edit-subcate/#{subcate.subcateslug}")
+                        button(type="button" class="btn btn-xs btn-warning") Cập nhật
+            |            
+            -if(cate.status == 0){
+            td Tắt
+            -}
+            -if(cate.status == 1){
+            td Hiện
+            -} 
+            -if(cate.status == 2){
+            td Trang chủ
+            -}
+            td 
+              a(href="edit-cate/#{cate.cateslug}")
+                button(type="button" class="btn btn-sm btn-danger") Cập nhật
+          |         
+        
