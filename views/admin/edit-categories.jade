@@ -1,0 +1,104 @@
+extends ../layouts/admin.jade
+block contents
+	h1 Chỉnh sửa ngành hàng
+	case status
+		when "success"
+			div(class="alert alert-success")
+				p #{message}
+		when "error"
+			div(class="alert alert-danger")
+				p #{message}
+	form(action='', name='edit-categories', method="POST", enctype="multipart/form-data")
+		div.form-group
+			label(for='catename') Tên ngành hàng:
+			|     
+			input#catename.form-control(type='text' name='catename' value='#{category.catename}' required)
+		div.form-group
+			label(for='catedes') Mô tả về ngành hàng:
+			|     
+			textarea#catedes.form-control(row='7' name='catedes' required) #{category.catedes}
+		div.form-group
+			label(for='catecover') Hình cover ngành hàng:
+			|     
+			input#catecover.form-control(type="file" name='catecover')
+			img(src="/#{category.catecover}")
+		div.form-group
+			label(for='cateavatar') Hình đại diện ngành hàng:
+			|     
+			input#cateavatar.form-control(type="file" name='cateavatar')
+			img(src="/#{category.cateavatar}")   
+		div.form-group
+			label(for='catebanner1') Hình banner 1:
+			|     
+			input#catebanner1.form-control.btn-file(type="file" name='catebanner1')
+			-if(category.catebanner1){
+			img(src="/#{category.catebanner1}")
+			-}
+		div.form-group
+			label(for='catebanner2') Hình banner 2:
+			|     
+			input#catebanner2.form-control(type="file" name='catebanner2')
+			-if(category.catebanner2){
+			img(src="/#{category.catebanner2}")
+			-}
+		div.form-group
+			label(for='catebanner3') Hình banner 3:
+			|     
+			input#password.form-control(type="file" name='catebanner3')
+			-if(category.catebanner3){
+			img(src="/#{category.catebanner3}")
+			-}
+		div.form-group
+			label(for='catestatus') Trạng thái:
+			|  
+			-if(category.status == 0){
+			input(type='radio', name='catestatus', value='0', style="" checked)
+			-}else{
+			input(type='radio', name='catestatus', value='0', style="")
+			-}   
+			|  Ẩn   
+			-if(category.status == 1){
+			input(type='radio', name='catestatus', value='1', style="" checked)
+			-}else{
+			input(type='radio', name='catestatus', value='1', style="")
+			-}   
+			|  Hiện   
+			-if(category.status == 2){
+			input(type='radio', name='catestatus', value='2', style="" checked)
+			-}else{
+			input(type='radio', name='catestatus', value='2', style="")
+			-} 
+			input#cateid.form-control(type='hidden' name='cateid' value='#{category._id}' required)  
+			|  Trang chủ 
+		table.table.table-bordered
+			thead
+				tr        
+					th Ngành hàng con
+					| 
+					th Trạng thái
+					|          
+					th Thao tác  
+			- each cate in category.subcategory
+				tr
+					td #{cate.subcatename}
+					|                   
+					-if(cate.status == 0){
+					td Tắt
+					-}
+					-if(cate.status == 1){
+					td Hiện
+					-} 
+					-if(cate.status == 2){
+					td Trang chủ
+					-}
+					td 
+						a(href="/admin/edit-subcate/#{cate.subcateslug}")
+							button(type="button" class="btn btn-sm btn-danger") Cập nhật
+					|             
+		div(class="form-group")
+			div#addsubcate(class="")
+				button(type="button" class="btn btn-sm btn-warning") Thêm danh mục con
+		div.subcate
+		div(class="form-group")
+			div(class="")
+				button(type="submit" class="btn btn-sm btn-primary btn-group-lg") Cập nhật

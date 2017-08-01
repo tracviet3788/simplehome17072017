@@ -43,12 +43,27 @@ module.exports.addSubCate = function (cateid, subcateid, callback) {
 		const query = {_id:cateid};
 		category.update(query, {$push: { subcategory: subcateid } }, { multi: false }, callback);
 	}else{
-		res.send('Invalid cateid');
+		console.log('Invalid cateid');
+	}
+}
+module.exports.updateCateBySlug = function (slug, newcategory, callback) {
+	//console.log(administrator);
+	if(slug){
+		const query = {cateslug:slug};
+	    category.update(query, newcategory, { multi: false }, callback);
+	}else{
+		return 'Invalid slug';
 	}
 }
 module.exports.getAllCategory = function (callback) {
     category.find({}).populate('subcategory').exec(callback);
 }
-module.exports.getPostById = function (id, callback) {
-    category.findById(id, callback);
+module.exports.getCateBySlug = function (slug, callback) {
+	if(slug){
+		const query = {cateslug:slug};
+		//console.log(query);
+		category.findOne(query).populate('subcategory').exec(callback);
+	}else{
+		res.send('Invalid cateslug');
+	}
 }

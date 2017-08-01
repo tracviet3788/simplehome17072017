@@ -1,0 +1,38 @@
+extends ../layouts/admin.jade
+block contents
+	h1 Chỉnh sửa ngành hàng con
+	case status
+		when "success"
+			div(class="alert alert-success")
+				p #{message}
+		when "error"
+			div(class="alert alert-danger")
+				p #{message}
+	form(action='', name='edit-subcategories', method="POST")
+		div.form-group
+			label(for='subcatename') Tên ngành hàng:
+			|     
+			input#catename.form-control(type='text' name='subcatename' value='#{subcategory.subcatename}' required)
+		div.form-group
+			label(for='subcatedes') Mô tả về ngành hàng:
+			|     
+			textarea#catedes.form-control(row='7' name='subcatedes' required) #{subcategory.subcatedes}
+		div.form-group
+			label(for='subcatestatus') Trạng thái:
+			|  
+			-if(subcategory.status == 0){
+			input(type='radio', name='subcatestatus', value='0', style="" checked)
+			-}else{
+			input(type='radio', name='subcatestatus', value='0', style="")
+			-}   
+			|  Ẩn   
+			-if(subcategory.status == 1){
+			input(type='radio', name='subcatestatus', value='1', style="" checked)
+			-}else{
+			input(type='radio', name='subcatestatus', value='1', style="")
+			-}   
+			|  Hiện    
+		input#subcateid.form-control(type='hidden' name='subcateid' value='#{subcategory._id}' required)  
+		div(class="form-group")
+			div(class="")
+				button(type="submit" class="btn btn-sm btn-primary btn-group-lg") Cập nhật

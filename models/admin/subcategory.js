@@ -7,7 +7,10 @@ const config = require('../../config/database');
 
 const SubcategorySchema = mongoose.Schema({
     cateid : {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
-    subcatename : String,
+    subcatename : {
+        type: String,
+        required: true
+    },
     subcateslug : {
         type: String,
         required: true,
@@ -33,4 +36,21 @@ module.exports.getSubcategory = function (callback) {
 }
 module.exports.getPostById = function (id, callback) {
     newSubcategory.findById(id, callback);
+}
+module.exports.getSubCateBySlug = function (slug, callback) {
+    if(slug){
+        const query = {subcateslug:slug};
+        subcategory.findOne(query).exec(callback);
+    }else{
+        res.send('Invalid subcateslug');
+    }
+}
+module.exports.updateSubCateBySlug = function (slug, newsubcategory, callback) {
+    console.log(newsubcategory);
+    if(slug){
+        const query = {subcateslug:slug};
+        subcategory.update(query, newsubcategory, { multi: false }, callback);
+    }else{
+        return 'Invalid slug';
+    }
 }

@@ -25,7 +25,7 @@ block contents
                   tr
                     td #{subcate.subcatename}
                     td 
-                      a(href="edit-subcate/#{subcate.subcateslug}")
+                      a(href="/admin/edit-subcate/#{subcate.subcateslug}")
                         button(type="button" class="btn btn-xs btn-warning") Cập nhật
             |            
             -if(cate.status == 0){
@@ -38,7 +38,7 @@ block contents
             td Trang chủ
             -}
             td 
-              a(href="edit-cate/#{cate.cateslug}")
+              a(href="/admin/edit-cate/#{cate.cateslug}")
                 button(type="button" class="btn btn-sm btn-danger") Cập nhật
           |         
         

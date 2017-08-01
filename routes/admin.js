@@ -107,6 +107,18 @@ router.get('/login', function(req,res){
         res.render('admin/login');
     }
 });
+router.get('/edit-cate/:title', isAuthenticated, function(req, res) {
+    categoryController.getEditAdminCategory(req,res);
+});
+router.post('/edit-cate/:title', multipartMiddleware, isAuthenticated, function(req, res) {
+    categoryController.updateCategory(req,res);
+});
+router.get('/edit-subcate/:title', isAuthenticated, function(req, res) {
+    categoryController.getEditAdminSubCategory(req,res);
+});
+router.post('/edit-subcate/:title', isAuthenticated, function(req, res) {
+    categoryController.updateSubCategory(req,res);
+});
 //test
 router.get('/test', function(req, res){
   var test = subCategory.getSubcategory();
